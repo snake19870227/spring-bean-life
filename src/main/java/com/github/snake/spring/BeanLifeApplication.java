@@ -69,7 +69,7 @@ public class BeanLifeApplication {
     }
 
     @Configuration
-    public static class CutomBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+    public static class CustomBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
         private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         private MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(this.resourcePatternResolver);
