@@ -6,6 +6,8 @@ package com.github.snake.spring.cars;
  */
 public interface Car {
 
+    String getBeanName();
+
     String getName();
 
     void run();

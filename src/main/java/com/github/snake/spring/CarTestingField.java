@@ -1,6 +1,7 @@
 package com.github.snake.spring;
 
 import com.github.snake.spring.cars.Car;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @date 2019/4/23
  */
 @Component
-public class CarTestingField implements InitializingBean {
+public class CarTestingField implements InitializingBean, DisposableBean {
 
     private Car[] cars;
 
@@ -28,6 +29,7 @@ public class CarTestingField implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        System.out.println("试车场开启");
         StringBuilder carNameStr = new StringBuilder();
         for (Car car : cars) {
             carNameStr.append(car.getName()).append(" ");
@@ -49,5 +51,10 @@ public class CarTestingField implements InitializingBean {
             car.stop();
         }
         System.out.println("已全部停止试车");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("试车场关闭");
     }
 }

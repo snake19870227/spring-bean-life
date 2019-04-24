@@ -1,12 +1,16 @@
 package com.github.snake.spring.cars;
 
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
  * @author BuHuaYang
  * @date 2019/4/23
  */
-public abstract class AbstractCar implements Car, InitializingBean {
+public abstract class AbstractCar implements Car, BeanNameAware, InitializingBean, DisposableBean {
+
+    private String beanName;
 
     private String name;
 
@@ -21,6 +25,11 @@ public abstract class AbstractCar implements Car, InitializingBean {
     }
 
     @Override
+    public String getBeanName() {
+        return beanName;
+    }
+
+    @Override
     public void run() {
         System.out.println(this.name + " 正在行驶...");
     }
@@ -31,7 +40,17 @@ public abstract class AbstractCar implements Car, InitializingBean {
     }
 
     @Override
+    public void setBeanName(String name) {
+        this.beanName = name;
+    }
+
+    @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println(this.name + " 组装中...");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println(this.name + " 正在拆解...");
     }
 }

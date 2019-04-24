@@ -33,10 +33,10 @@ import java.lang.reflect.Modifier;
                 "com.github.snake.spring"
         }
 )
-public class BeanLife {
+public class BeanLifeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BeanLife.class);
+        SpringApplication.run(BeanLifeApplication.class);
     }
 
     @Component
@@ -69,7 +69,7 @@ public class BeanLife {
     }
 
     @Configuration
-    public static class Config implements BeanDefinitionRegistryPostProcessor {
+    public static class CutomBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
         private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         private MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(this.resourcePatternResolver);
@@ -79,7 +79,7 @@ public class BeanLife {
         @Override
         public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
 
-            String basePackage = StringUtils.substringBeforeLast(BeanLife.class.getName(), ".") + ".cars";
+            String basePackage = StringUtils.substringBeforeLast(BeanLifeApplication.class.getName(), ".") + ".cars";
             String basePackagePath = ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage));
             String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + basePackagePath + '/' + "**/*.class";
             try {
